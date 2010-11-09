@@ -3,6 +3,12 @@
 Constantly transfer all Redis items from one queue to the same queue on another machine.
 Great if you want to have multiple Resque machines, but only want the jobs to run on one of them.  With Resque Repeater, you temporarily _stage_ them on local machines so your application doesn't need to make calls across the world.
 
+### Quick Start
+
+1.  Set up configuration files as below
+2.  gem install redis-repeater
+3.  redis-repeater /path/to/config/directory
+
 ### Configuration
 
 **config/queues.yml** - Set queue names to transfer with timeouts (0 if none)
