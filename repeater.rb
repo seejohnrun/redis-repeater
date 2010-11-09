@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
-require 'lib/repeater'
+require 'lib/redis-repeater'
 RedisRepeater::start

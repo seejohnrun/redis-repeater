@@ -1,6 +1,6 @@
 require 'yaml'
-require 'lib/resque_scheduler_job'
-require 'lib/scheduler'
+require 'lib/redis-repeater/transfer_scheduler_job'
+require 'lib/redis-repeater/scheduler'
 
 require 'logger'
 
@@ -28,7 +28,7 @@ module RedisRepeater
     # Load the queues into the scheduler
     scheduler = Scheduler.new(logger)
     queues.each do |name, timeout|
-      scheduler << ResqueSchedulerJob.new(name, timeout, logger, redis_from, redis_to)
+      scheduler << TransferSchedulerJob.new(name, timeout, logger, redis_from, redis_to)
     end
 
     # Perform forever

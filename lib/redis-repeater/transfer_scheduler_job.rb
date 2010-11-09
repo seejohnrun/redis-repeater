@@ -1,10 +1,12 @@
-require 'lib/scheduler_job'
+require 'lib/redis-repeater/scheduler_job'
 require 'rubygems'
 require 'redis'
 
 module RedisRepeater
 
-  class ResqueSchedulerJob < SchedulerJob
+  # Move jobs from One Redis queue to the same queue on a different machine
+
+  class TransferSchedulerJob < SchedulerJob
 
     def initialize(name, timeout, logger, redis_from, redis_to)
       @redis_from = redis_from
