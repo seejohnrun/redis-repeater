@@ -5,3 +5,5 @@ origin:
 destination:
   host: localhost
   port: 6385
+
+log: /Users/johncrepezzi/Desktop/resque-repeater.log

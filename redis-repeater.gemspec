@@ -9,6 +9,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency('eventmachine')
   s.description = 'Automatically move events from one redis queue to the same queue on another server'
   s.email = 'john@crepezzi.com'
+  s.executables = ['redis-repeater']
   s.files = Dir['lib/**/*.rb']
   s.has_rdoc = true
   s.homepage = 'http://seejohnrun.github.com/redis-repeater/'

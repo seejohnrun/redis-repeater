@@ -1,6 +1,6 @@
 require 'yaml'
-require 'lib/redis-repeater/transfer_scheduler_job'
-require 'lib/redis-repeater/scheduler'
+require 'redis-repeater/transfer_scheduler_job'
+require 'redis-repeater/scheduler'
 
 require 'logger'
 
@@ -12,18 +12,18 @@ module RedisRepeater
   DefaultRedisHost = 'localhost'
   DefaultRedisPort = 6380
 
-  def self.start
+  def self.start(config_dir = 'config')
 
     # Connect to redis
-    config = YAML::load File.open('config/redis.yml')
+    config = YAML::load File.open("#{config_dir}/config.yml")
     redis_from = redis_configure(config, 'origin')
     redis_to = redis_configure(config, 'destination')
 
     # Load the queues from the config file
-    queues = YAML::load File.open('config/queues.yml')
+    queues = YAML::load File.open("#{config_dir}/queues.yml")
 
     # Logger
-    logger = Logger.new('log/redis-repeater.log')
+    logger = Logger.new(config.has_key?('log') ? config['log'] : 'log/redis-repeater.log')
 
     # Load the queues into the scheduler
     scheduler = Scheduler.new(logger)

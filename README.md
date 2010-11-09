@@ -11,7 +11,7 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 		some_other_queue: 5
     listings: 0
 
-**config/redis.yml** - What machines?
+**config/config.yml** - What machines?
 
     origin:
         host: localhost
@@ -20,6 +20,8 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
     destination:
         host: some.production_box.example.com
         port: 6380
+
+		log: /path/to/repeater.log
 
 ### Dependencies
 

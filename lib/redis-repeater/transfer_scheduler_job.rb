@@ -1,4 +1,4 @@
-require 'lib/redis-repeater/scheduler_job'
+require 'redis-repeater/scheduler_job'
 require 'rubygems'
 require 'redis'
 
