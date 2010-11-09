@@ -1,0 +1,7 @@
+# This is to configure which queues we pull from and at what interval
+# Intervals are in seconds
+
+# FORMAT:
+# queue_name: timeout
+
+queue:john: 1

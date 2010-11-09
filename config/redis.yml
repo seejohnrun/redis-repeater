@@ -1,0 +1,7 @@
+origin: 
+  host: localhost
+  port: 6379
+
+destination:
+  host: localhost
+  port: 6385
