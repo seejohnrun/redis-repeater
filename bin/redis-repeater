@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
 require File.dirname(__FILE__) + '/../lib/redis-repeater'
-RedisRepeater::start(ARGV.empty? ? 'config' : ARGV[0])
+RedisRepeater::start(ARGV.empty? ? File.dirname(__FILE__) + '/../config' : ARGV[0])

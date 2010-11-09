@@ -1,6 +1,3 @@
-require 'rubygems'
-require 'eventmachine'
-
 module RedisRepeater
 
   class Scheduler

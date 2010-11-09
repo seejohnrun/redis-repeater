@@ -1,18 +1,22 @@
-require 'yaml'
-require 'redis-repeater/transfer_scheduler_job'
-require 'redis-repeater/scheduler'
+require File.dirname(__FILE__) + '/redis-repeater/scheduler.rb'
+require File.dirname(__FILE__) + '/redis-repeater/scheduler_job.rb'
+require File.dirname(__FILE__) + '/redis-repeater/transfer_scheduler_job.rb'
 
+require 'yaml'
 require 'logger'
+require 'fileutils'
 
 require 'rubygems'
 require 'redis'
+require 'eventmachine'
 
 module RedisRepeater
  
   DefaultRedisHost = 'localhost'
   DefaultRedisPort = 6380
+  LogDefaultFilename = File.dirname(__FILE__) + '/../log/redis-repeater.log'
 
-  def self.start(config_dir = 'config')
+  def self.start(config_dir = File.dirname(__FILE__) + '/../config')
 
     # Connect to redis
     config = YAML::load File.open("#{config_dir}/config.yml")
@@ -23,7 +27,10 @@ module RedisRepeater
     queues = YAML::load File.open("#{config_dir}/queues.yml")
 
     # Logger
-    logger = Logger.new(config.has_key?('log') ? config['log'] : 'log/redis-repeater.log')
+    log_filename = config.has_key?('log') ? config['log'] : LogDefaultFilename
+    log_path = File.dirname(log_filename)
+    FileUtils.mkdir_p(log_path)
+    logger = Logger.new(log_filename)
 
     # Load the queues into the scheduler
     scheduler = Scheduler.new(logger)

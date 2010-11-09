@@ -1,7 +1,3 @@
-require 'redis-repeater/scheduler_job'
-require 'rubygems'
-require 'redis'
-
 module RedisRepeater
 
   # Move jobs from One Redis queue to the same queue on a different machine
