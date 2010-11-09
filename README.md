@@ -8,7 +8,7 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 **config/queues.yml** - Set queue names to transfer with timeouts (0 if none)
 
     queue:john: 4
-		some_other_queue: 5
+    some_other_queue: 5
     listings: 0
 
 **config/config.yml** - What machines?
