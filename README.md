@@ -27,7 +27,7 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
         host: some.production_box.example.com
         port: 6380
 
-		log: /path/to/repeater.log
+    log: /path/to/repeater.log
 
 ### Dependencies
 
