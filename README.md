@@ -15,7 +15,7 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 
     queue:john: 4
     some_other_queue: 5
-    listings: 0
+    listings: 0  # will refresh as soon as it finishes transferring
 
 **config/config.yml** - What machines?
 
