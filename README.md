@@ -6,8 +6,8 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 ### Quick Start
 
 1.  Set up configuration files as below
-2.  gem install redis-repeater
-3.  redis-repeater /path/to/config/directory
+2.  `gem install redis-repeater`
+3.  `redis-repeater /path/to/config/directory`
 
 ### Configuration
 

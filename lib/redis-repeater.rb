@@ -16,7 +16,7 @@ module RedisRepeater
   DefaultRedisPort = 6380
   LogDefaultFilename = File.dirname(__FILE__) + '/../log/redis-repeater.log'
 
-  def self.start(config_dir = File.dirname(__FILE__) + '/../config')
+  def self.start(config_dir)
 
     # Connect to redis
     config = YAML::load File.open("#{config_dir}/config.yml")
