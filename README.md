@@ -32,6 +32,7 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 ### Dependencies
 
 * Event Machine
+* Redis
 
 ### Author
 
