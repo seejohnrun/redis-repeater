@@ -27,10 +27,13 @@ module RedisRepeater
     queues = YAML::load File.open("#{config_dir}/queues.yml")
 
     # Logger
-    log_filename = config.has_key?('log') ? config['log'] : LogDefaultFilename
-    log_path = File.dirname(log_filename)
-    FileUtils.mkdir_p(log_path)
-    logger = Logger.new(log_filename)
+    if config.has_key?('log')
+      log_filename = config['log']
+      FileUtils.mkdir_p(File.dirname(log_filename))
+      logger = Logger.new(log_filename)
+    else
+      logger = Logger.new(STDOUT)
+    end
 
     # Load the queues into the scheduler
     scheduler = Scheduler.new(logger)

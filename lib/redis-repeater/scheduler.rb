@@ -4,6 +4,7 @@ module RedisRepeater
 
     def initialize(logger = nil)
       @logger = logger
+      @logger.info 'Running on schedule forever...'
     end
 
     # When adding, we move through the current queue, and
@@ -13,10 +14,6 @@ module RedisRepeater
       EventMachine.run {
         EventMachine::add_timer(job.timeout) { job.perform; scheduler << job }
       }
-    end
-
-    def perform
-      @logger.info 'Running on schedule forever...'
     end
 
   end
