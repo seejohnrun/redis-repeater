@@ -13,7 +13,7 @@ require 'eventmachine'
 module RedisRepeater
  
   DefaultRedisHost = 'localhost'
-  DefaultRedisPort = 6380
+  DefaultRedisPort = 6379
   LogDefaultFilename = File.dirname(__FILE__) + '/../log/redis-repeater.log'
 
   def self.start(config_dir)
