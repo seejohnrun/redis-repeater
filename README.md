@@ -44,7 +44,7 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 
 ### Contributing
 
-* Contributions are welcome - I use Lighthouse for bug fixes (accompanying failing tests are awesome) and feature requests
+* Contributions are always welcome
 * Submit via fork and pull request (include tests)
 * Stick with my code style, and don’t get mad if I make style changes to your code (consistency is a key to readability)
 * If you’re working on something major, shoot me a message beforehand
