@@ -18,6 +18,6 @@ spec = Gem::Specification.new do |s|
   s.summary = 'Redis Repeater'
   s.test_files = Dir.glob('spec/*.rb')
   s.version = RedisRepeater::VERSION.join('.')
-  s.rubyforge_project = "redis_repeater"
+  s.rubyforge_project = "redis-repeater"
 
 end
