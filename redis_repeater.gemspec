@@ -1,5 +1,4 @@
-require 'rubygems'
-require 'lib/redis-repeater/version'
+require File.dirname(__FILE__) + '/lib/redis_repeater/version'
 
 spec = Gem::Specification.new do |s|
   
@@ -19,6 +18,6 @@ spec = Gem::Specification.new do |s|
   s.summary = 'Redis Repeater'
   s.test_files = Dir.glob('spec/*.rb')
   s.version = RedisRepeater::VERSION.join('.')
-  s.rubyforge_project = "redis-repeater"
+  s.rubyforge_project = "redis_repeater"
 
 end

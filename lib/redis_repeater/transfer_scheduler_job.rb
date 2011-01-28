@@ -13,6 +13,7 @@ module RedisRepeater
     def perform
       count = 0
       while (item = @redis_from.lpop @name)
+        # work the same direction resque does
         @redis_to.rpush(@name, item)
         count += 1
       end

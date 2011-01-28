@@ -1,20 +1,19 @@
-require File.dirname(__FILE__) + '/redis-repeater/scheduler.rb'
-require File.dirname(__FILE__) + '/redis-repeater/scheduler_job.rb'
-require File.dirname(__FILE__) + '/redis-repeater/transfer_scheduler_job.rb'
+require File.dirname(__FILE__) + '/redis_repeater/scheduler.rb'
+require File.dirname(__FILE__) + '/redis_repeater/scheduler_job.rb'
+require File.dirname(__FILE__) + '/redis_repeater/transfer_scheduler_job.rb'
 
 require 'yaml'
 require 'logger'
 require 'fileutils'
 
-require 'rubygems'
-require 'redis'
 require 'eventmachine'
+require 'redis'
 
 module RedisRepeater
  
   DefaultRedisHost = 'localhost'
   DefaultRedisPort = 6379
-  LogDefaultFilename = File.dirname(__FILE__) + '/../log/redis-repeater.log'
+  LogDefaultFilename = File.dirname(__FILE__) + '/../log/redis_repeater.log'
 
   def self.start(config_dir)
 

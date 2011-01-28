@@ -1,1 +1,4 @@
 log
+dump.rdb
+Gemfile.lock
+.bundle
