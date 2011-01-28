@@ -2,3 +2,6 @@ log
 dump.rdb
 Gemfile.lock
 .bundle
+*.swp
+*.swo
+*.gem
