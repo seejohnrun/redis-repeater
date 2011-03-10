@@ -17,6 +17,7 @@ module RedisRepeater
         @redis_to.rpush(@name, item)
         count += 1
       end
+      @redis_from.incrby("redis-repeater:#{@name}:count", count)
       @logger.debug "Transported #{count} items for #{@name}"
     end
 
