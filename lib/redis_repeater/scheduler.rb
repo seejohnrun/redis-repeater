@@ -11,9 +11,7 @@ module RedisRepeater
     # find the first one that is performing after we want to
     def <<(job)
       scheduler = self
-      EventMachine.run {
-        EventMachine::add_timer(job.timeout) { job.perform; scheduler << job }
-      }
+      EventMachine::add_timer(job.timeout) { job.perform; scheduler << job }
     end
 
   end
