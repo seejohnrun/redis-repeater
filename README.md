@@ -29,6 +29,10 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 
     log: /path/to/repeater.log
 
+### Resque Queues
+
+If you specify a queue named `resque:queues`, all of your resque queues will be repeated
+
 ### Dependencies
 
 * Event Machine
