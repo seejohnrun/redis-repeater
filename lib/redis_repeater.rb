@@ -36,7 +36,7 @@ module RedisRepeater
 
     # Load the queues into the scheduler
     scheduler = Scheduler.new(logger)
-    EventMachine.run do
+    EventMachine::run do
       queues.each do |name, timeout|
         scheduler << TransferSchedulerJob.new(name, timeout, logger, redis_from, redis_to)
       end
