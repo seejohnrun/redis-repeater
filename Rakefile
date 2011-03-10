@@ -1,4 +1,4 @@
-require 'lib/redis-repeater/version'
+require File.dirname(__FILE__) + '/lib/redis_repeater/version'
  
 task :build do
   system "gem build redis-repeater.gemspec"
