@@ -25,6 +25,15 @@ module RedisRepeater
     # Load the queues from the config file
     queues = YAML::load File.open("#{config_dir}/queues.yml")
 
+    # replace 'magic' resque:queues key with all resque queues, but don't overwrite otherwise configured queues
+    # warning: only resolves queue names on startup, if new queue is created it will not pick it up.
+    if queues.has_key?("resque:queues")
+      redis_from.smembers("resque:queues").each do |queue|
+        queues["resque:queue:#{queue}"] = queues["resque:queues"] unless queues.has_key?("resque:queue:#{queue}")
+      end
+      queues.delete("resque:queues")
+    end
+    
     # Logger
     if config.has_key?('log')
       log_filename = config['log']
@@ -38,6 +47,7 @@ module RedisRepeater
     scheduler = Scheduler.new(logger)
     EventMachine::run do
       queues.each do |name, timeout|
+        puts "#{name} - #{timeout}"
         scheduler << TransferSchedulerJob.new(name, timeout, logger, redis_from, redis_to)
       end
     end
