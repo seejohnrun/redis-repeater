@@ -6,6 +6,8 @@ describe RedisRepeater do
     puts # clear for tests
     stop_repeater
     stop_servers
+    sleep 1
+    puts '---'
   end
 
   before(:all) do
@@ -18,7 +20,7 @@ describe RedisRepeater do
   before(:each) do
     @redis_client.llen(QN).should == 0
     @redis_server.llen(QN).should == 0
-  end
+ end
 
   it 'should be able to put something into the client, and have it show up on the server' do
     @redis_client.rpush(QN, 'hello')
@@ -51,6 +53,13 @@ describe RedisRepeater do
     @redis_client.llen(QN).should == 0
     values = []; while v = @redis_server.lpop(QN) do; values << v; end
     values.should == ['hello server', 'hello client']
+  end
+
+  it 'should not be maintaining counts by default' do
+    @redis_server.rpush(QN, 'hello!')
+    sleep(0.1)
+    @redis_server.rpop(QN).should == 'hello!'
+    @redis_server.get("redis-repeater:#{QN}:count").to_i.should == 0
   end
  
 end

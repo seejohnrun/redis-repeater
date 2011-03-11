@@ -1,0 +1,12 @@
+origin:
+  host: localhost
+  port: 6392
+
+destination:
+  host: localhost
+  port: 6391
+
+counter: true
+
+log: log/test.log
+daemonize: yes

@@ -48,7 +48,7 @@ module RedisRepeater
     EventMachine::run do
       queues.each do |name, timeout|
         puts "#{name} - #{timeout}"
-        scheduler << TransferSchedulerJob.new(name, timeout, logger, redis_from, redis_to)
+        scheduler << TransferSchedulerJob.new(name, timeout, logger, redis_from, redis_to, config['counter'])
       end
     end
 

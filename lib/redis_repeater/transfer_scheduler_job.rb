@@ -4,9 +4,10 @@ module RedisRepeater
 
   class TransferSchedulerJob < SchedulerJob
 
-    def initialize(name, timeout, logger, redis_from, redis_to)
+    def initialize(name, timeout, logger, redis_from, redis_to, maintain_count)
       @redis_from = redis_from
       @redis_to = redis_to
+      @maintain_count = maintain_count
       super(name, timeout, logger)
     end
 
@@ -17,7 +18,7 @@ module RedisRepeater
         @redis_to.rpush(@name, item)
         count += 1
       end
-      @redis_from.incrby("redis-repeater:#{@name}:count", count)
+      @redis_from.incrby("redis-repeater:#{@name}:count", count) if @maintain_count
       @logger.debug "Transported #{count} items for #{@name}"
     end
 

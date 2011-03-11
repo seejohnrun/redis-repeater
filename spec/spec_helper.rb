@@ -23,11 +23,11 @@ def stop_servers
   end
 end
 
-def start_repeater
+def start_repeater(type = :default)
   print 'starting the repeater.. '
   # TODO deamonize
   @rthread = Thread.start do
-    RedisRepeater.start(File.dirname(__FILE__) + '/support/config')
+    RedisRepeater.start(File.dirname(__FILE__) + "/support/config/#{type}")
   end
   puts 'DONE'
 end
