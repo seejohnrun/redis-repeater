@@ -33,6 +33,10 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 
 If you specify a queue named `resque:queues`, all of your resque queues will be repeated
 
+### Maintaingin Counts
+
+In config.yml, if you include `counter:true`, counts will be maintained for the number of repeated items in queues named: `redis-repeater:#{queue_name}:count`
+
 ### Dependencies
 
 * Event Machine
