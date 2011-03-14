@@ -11,13 +11,7 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 
 ### Configuration
 
-**config/queues.yml** - Set queue names to transfer with timeouts (0 if none)
-
-    queue:john: 4
-    some_other_queue: 5
-    listings: 0  # will refresh as soon as it finishes transferring
-
-**config/config.yml** - What machines?
+**config/config.yml**
 
     origin:
         host: localhost
@@ -28,6 +22,12 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
         port: 6380
 
     log: /path/to/repeater.log
+
+    queues:
+        queue:john: 4
+        some_other_queue: 5
+        listings: 0  # will refresh as soon as it finishes transferring (default)
+
 
 ### Resque Queues
 

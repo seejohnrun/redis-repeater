@@ -15,6 +15,11 @@ describe RedisRepeater do
     start_repeater(:count)
     @redis_server = Redis.new(:host => 'localhost', :port => SERVER_PORT)
     @redis_client = Redis.new(:host => 'localhost', :port => CLIENT_PORT)
+
+    while @redis_server.lpop(QN)
+    end
+    while @redis_client.lpop(QN)
+    end
   end
 
   before(:each) do
@@ -28,14 +33,14 @@ describe RedisRepeater do
 
   it 'should maintain a count when transferring items' do
     @redis_client.rpush(QN, 'hello!')
-    sleep(0.1)
+    sleep(0.2)
     @redis_server.lpop(QN).should == 'hello!'
     @redis_client.get("redis-repeater:#{QN}:count").to_i.should == 1
   end
 
   it 'should quick to track many things atomically' do
-    1000.times { @redis_client.rpush(QN, 'hello!') }; sleep(0.1)
-    1000.times { @redis_server.lpop(QN).should == 'hello!' }; sleep(0.1)
+    1000.times { @redis_client.rpush(QN, 'hello!') }; sleep(0.2)
+    1000.times { @redis_server.lpop(QN).should == 'hello!' }; sleep(0.2)
     @redis_client.get("redis-repeater:#{QN}:count").to_i.should == 1000
   end
 

@@ -23,7 +23,7 @@ module RedisRepeater
     redis_to = redis_configure(config, 'destination')
 
     # Load the queues from the config file
-    queues = YAML::load File.open("#{config_dir}/queues.yml")
+    queues = config.has_key?('queues') ? config['queues'] : YAML::load(File.open("#{config_dir}/queues.yml"))
 
     # replace 'magic' resque:queues key with all resque queues, but don't overwrite otherwise configured queues
     # warning: only resolves queue names on startup, if new queue is created it will not pick it up.
