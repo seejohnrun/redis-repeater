@@ -12,7 +12,7 @@ describe RedisRepeater do
 
   before(:all) do
     start_servers
-    start_repeater(:combined)
+    start_repeater('combined/config.yml')
     @redis_server = Redis.new(:host => 'localhost', :port => SERVER_PORT)
     @redis_client = Redis.new(:host => 'localhost', :port => CLIENT_PORT)
   end

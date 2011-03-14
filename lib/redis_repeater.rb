@@ -15,15 +15,20 @@ module RedisRepeater
   DefaultRedisPort = 6379
   LogDefaultFilename = File.dirname(__FILE__) + '/../log/redis_repeater.log'
 
-  def self.start(config_dir)
+  def self.start(config_path)
+
+    # allow a directory OR a yml file
+    if File.directory?(config_path)
+      config = YAML::load File.open(File.join(config_path, 'config.yml'))
+      queues = YAML::load File.open(File.join(config_path, 'queues.yml'))
+    else
+      config = YAML::load File.open(config_path)
+      queues = config['queues']
+    end
 
     # Connect to redis
-    config = YAML::load File.open("#{config_dir}/config.yml")
     redis_from = redis_configure(config, 'origin')
     redis_to = redis_configure(config, 'destination')
-
-    # Load the queues from the config file
-    queues = config.has_key?('queues') ? config['queues'] : YAML::load(File.open("#{config_dir}/queues.yml"))
 
     # replace 'magic' resque:queues key with all resque queues, but don't overwrite otherwise configured queues
     # warning: only resolves queue names on startup, if new queue is created it will not pick it up.

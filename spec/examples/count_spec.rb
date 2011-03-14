@@ -15,11 +15,6 @@ describe RedisRepeater do
     start_repeater(:count)
     @redis_server = Redis.new(:host => 'localhost', :port => SERVER_PORT)
     @redis_client = Redis.new(:host => 'localhost', :port => CLIENT_PORT)
-
-    while @redis_server.lpop(QN)
-    end
-    while @redis_client.lpop(QN)
-    end
   end
 
   before(:each) do
