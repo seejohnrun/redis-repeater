@@ -32,7 +32,7 @@ module RedisRepeater
 
     # replace 'magic' resque:queues key with all resque queues, but don't overwrite otherwise configured queues
     # warning: only resolves queue names on startup, if new queue is created it will not pick it up.
-    if queues.has_key?("resque:queues")
+    if queues.has_key?('resque:queues') || queues.has_key?('resque:queue:*')
       redis_from.smembers("resque:queues").each do |queue|
         queues["resque:queue:#{queue}"] = queues["resque:queues"] unless queues.has_key?("resque:queue:#{queue}")
       end

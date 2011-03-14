@@ -31,7 +31,7 @@ Great if you want to have multiple Resque machines, but only want the jobs to ru
 
 ### Resque Queues
 
-If you specify a queue named `resque:queues`, all of your resque queues will be repeated
+If you specify a queue named `resque:queue:*`, all of your resque queues will be repeated
 
 ### Maintaining Counts
 
