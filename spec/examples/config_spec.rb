@@ -1,15 +1,54 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe RedisRepeater::Repeater do
+  
+  it 'should be able to pick up magic queues for resque' do
+    while REDIS_ONE.spop 'resque:queues'; end
 
-  SERVER_ONE = { 'hostname' => 'localhost', 'port' => 6392 }
-  SERVER_TWO = { 'hostname' => 'localhost', 'port' => 6391 }
+    3.times do |idx|
+      REDIS_ONE.sadd 'resque:queues', "john#{idx}"
+    end
+
+    repeater = RedisRepeater::Repeater.new 'servers' => { 'one' => SERVER_ONE }, 'repeats' => [ { 'queue' => 'resque:queues:*', 'source' => 'one', 'destinations' => [] } ]
+    repeater.repeats.count.should == 3
+
+    repeater.repeats.each_with_index do |repeat, idx|
+      repeat.queue.should == "resque:queue:john#{idx}"
+    end
+  end
+
+  it 'should be able to pick up magic queues for resque (old style)' do
+    while REDIS_ONE.spop 'resque:queues'; end
+
+    3.times do |idx|
+      REDIS_ONE.sadd 'resque:queues', "john#{idx}"
+    end
+
+    repeater = RedisRepeater::Repeater.new 'servers' => { 'one' => SERVER_ONE }, 'repeats' => [ { 'queue' => 'resque:queues', 'source' => 'one', 'destinations' => [] } ]
+    repeater.repeats.count.should == 3
+
+    repeater.repeats.each_with_index do |repeat, idx|
+      repeat.queue.should == "resque:queue:john#{idx}"
+    end
+  end
 
   it 'should get an error when trying to start with no repeats' do
     lambda do
       repeater = RedisRepeater::Repeater.new 'servers' => { 'one' => SERVER_ONE }, 'repeats' => []
       repeater.run_forever
     end.should raise_error RedisRepeater::ConfigurationError
+  end
+
+  it 'should be able to not specify host on a redis connection' do
+    repeater = RedisRepeater::Repeater.new 'servers' => { 'one' => { 'port' => 6380 } }, 'repeats' => []
+    repeater.servers['one'].client.instance_variable_get(:@host).should == '127.0.0.1'
+    repeater.servers['one'].client.instance_variable_get(:@port).should == 6380
+  end
+
+  it 'should be able to not specify port on a redis connection' do
+    repeater = RedisRepeater::Repeater.new 'servers' => { 'one' => { 'host' => 'localhost' } }, 'repeats' => []
+    repeater.servers['one'].client.instance_variable_get(:@port).should == 6379
+    repeater.servers['one'].client.instance_variable_get(:@host).should == 'localhost'
   end
 
   it 'should be able to load a configuration with a server' do

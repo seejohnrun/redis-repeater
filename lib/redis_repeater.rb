@@ -38,10 +38,23 @@ module RedisRepeater
     private
 
     def load_hash_configuration(hash)
-      hash['servers'].each { |name, value| @servers[name] = Redis.new(value) }
+      hash['servers'].each do |name, value|
+        options = {}
+        value.each { |k, v| options[k.to_sym] = v }
+        @servers[name] = Redis.new(options)
+      end
       hash['repeats'].each do |repeat|
         options = {}
         options[:source] = find_server_by_name repeat['source']
+        # Handle 'magic' queues
+        if repeat['queue'] == 'resque:queues' || repeat['queue'] == 'resque:queues:*'
+          options[:source].smembers('resque:queues').each do |queue|
+            repeat = repeat.dup
+            repeat['queue'] = "resque:queue:#{queue}"
+            hash['repeats'] << repeat
+          end          
+          next
+        end
         options[:destinations] = repeat['destinations'].map { |d| { :server => find_server_by_name(d['server']), :queue => d['queue'] || repeat['queue'] } }
         options[:queue] = repeat['queue']
         options[:timeout] = repeat['timeout'] || 0

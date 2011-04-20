@@ -1,0 +1,4 @@
+*.swp
+*.swo
+*.gem
+spec/test.log
