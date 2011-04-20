@@ -41,6 +41,10 @@ If you specify a queue named `resque:queue:*`, all of your resque queues will be
 
 In config.yml, if you include `maintain_count:true`, counts will be maintained for the number of repeated items in queues named: `redis-repeater:#{queue_name}:count`
 
+### **Note on 0.2.0**
+
+Version `0.2.0` is a rewrite, and there are large changes to the configuration format.  Please check your configs before upgrading.
+
 ### Dependencies
 
 * Event Machine
@@ -65,7 +69,7 @@ In config.yml, if you include `maintain_count:true`, counts will be maintained f
 
 (The MIT License)
 
-Copyright © 2010 John Crepezzi
+Copyright © 2010-2011 John Crepezzi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ‘Software’), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
