@@ -2,6 +2,15 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe RedisRepeater::Repeater do
 
+  it 'should give an error when trying to connect to a host that doesn\'t exist' do
+    lambda do
+      repeater = RedisRepeater::Repeater.new 'servers' => { 'two' => SERVER_TWO }, 'repeats' => [
+        { 'queue' => 'john', 'source' => 'two', 'destinations' => [ { 'server' => 'two' } ] }
+      ]
+      repeater.run_forever
+    end.should raise_error Errno::ECONNREFUSED
+  end
+
   it 'should be able to replace a magic queue portion with an override' do
     while REDIS_ONE.spop 'resque:queues'; end
 
