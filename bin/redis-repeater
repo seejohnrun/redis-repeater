@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-require File.dirname(__FILE__) + '/../lib/redis_repeater'
-
-if ARGV.empty?
-  puts "Please specify a config directory"
-else
-  RedisRepeater::start(ARGV[0])
-end
