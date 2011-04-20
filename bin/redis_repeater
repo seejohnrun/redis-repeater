@@ -2,11 +2,33 @@
 
 require 'yaml'
 require File.dirname(__FILE__) + '/../lib/redis_repeater'
+require 'pidly'
 
-if ARGV.empty?
-  puts "Please specify a config directory"
+class RedisRepeaterController < Pidly::Control
+
+  before_start do
+    if ARGV.size != 2
+      puts 'redis-repeater start /path/to/config.yml'
+      exit
+    else
+      configuration = YAML::load File.open(ARGV[1], 'r')
+      @repeater = RedisRepeater::Repeater.new(configuration)
+      puts "PID: #{self.pid}"
+    end
+  end
+
+  start do
+    @repeater.run_forever
+  end
+
+end
+
+@daemon = RedisRepeaterController.spawn :name => 'redis_repeater', :verbose => true
+
+# Handle the command
+commands = %w{stop status restart clean! kill}
+if commands.include?(ARGV.first)
+  @daemon.send ARGV.first
 else
-  configuration = YAML::load(ARGV[0])
-  repeater = RedisRepeater::Repeater.new(configuration)
-  repeater.run_forever
+  puts "No such command, try one of: #{commands.join(', ')}"
 end
