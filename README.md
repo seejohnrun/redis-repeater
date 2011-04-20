@@ -1,7 +1,7 @@
 ## Redis Repeater
 
 Constantly transfer all Redis items from one queue to the same queue on another machine.
-Great if you want to have multiple Resque machines, but only want the jobs to run on one of them.  With Resque Repeater, you temporarily stage them on local machines so your application doesn't need to make calls across the world.
+Great if you want to have multiple Resque/Redis machines, but only want the jobs to run on one of them.  With `redis-repeater`, you temporarily stage them on local machines so your application doesn't need to make calls across the world.
 
 ### Quick Start
 
