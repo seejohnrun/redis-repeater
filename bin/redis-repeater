@@ -23,7 +23,7 @@ class RedisRepeaterController < Pidly::Control
 
 end
 
-@daemon = RedisRepeaterController.spawn :name => 'redis_repeater', :verbose => true
+@daemon = RedisRepeaterController.spawn :name => 'redis_repeater', :verbose => false, :logger => false
 
 # Handle the command
 commands = %w{start stop status restart clean! kill}
