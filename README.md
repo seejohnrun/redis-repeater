@@ -1,16 +1,16 @@
-## Redis Repeater
+# Redis Repeater
 
 Constantly transfer all Redis items from one queue to the same queue on another machine.
 Great if you want to have multiple Resque/Redis machines, but only want the jobs to run on one of them.  With `redis-repeater`, you temporarily stage them on local machines so your application doesn't need to make calls across the world.
 
-### Quick Start
+## Quick Start
 
 1.  Set up configuration files as below
 2.  `gem install redis-repeater`
 3.  `redis-repeater start /path/to/config/directory/config.yml`
 3.  `redis-repeater stop`
 
-### Configuration
+## Configuration
 
 ``` yaml
 servers:
@@ -33,15 +33,15 @@ repeats:
 log: /path/to/repeater.log
 ```
 
-### Resque Queues
+## Resque Queues
 
 If you specify a queue named `resque:queue:*`, all of your resque queues will be repeated
 
-### Maintaining Counts
+## Maintaining Counts
 
 In config.yml, if you include `maintain_count:true`, counts will be maintained for the number of repeated items in queues named: `redis-repeater:#{queue_name}:count`
 
-### **Note on 0.2.0**
+## **Note on 0.2.0**
 
 Version `0.2.0` is a rewrite, and there are large changes to the configuration format.  Please check your configs before upgrading.
 
