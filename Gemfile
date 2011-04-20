@@ -1,8 +1,6 @@
 source :rubygems
 
-gem 'redis'
-gem 'eventmachine'
-gem 'pidly'
+gemspec
 
 group :development do
   gem 'rspec'

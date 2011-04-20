@@ -1,6 +1,10 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe RedisRepeater::Repeater do
+
+  it 'should be able to get its version' do
+    RedisRepeater::VERSION.should be_a Array
+  end
   
   it 'should get an error when the configuration is empty' do
     lambda do

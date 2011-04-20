@@ -2,3 +2,4 @@
 *.swo
 *.gem
 spec/test.log
+Gemfile.lock
