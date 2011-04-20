@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require File.dirname(__FILE__) + '/../lib/redis_repeater'
+
+if ARGV.empty?
+  puts "Please specify a config directory"
+else
+  configuration = YAML::load(ARGV[0])
+  repeater = RedisRepeater::Repeater.new(configuration)
+  repeater.run_forever
+end

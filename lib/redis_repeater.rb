@@ -14,6 +14,7 @@ module RedisRepeater
     attr_reader :servers, :repeats, :logger
 
     def initialize(configuration, logger = nil)
+      raise ConfigurationError.new 'Configuration is empty' unless configuration
       @servers = {}
       @repeats = []
       # Get the logger
@@ -38,12 +39,12 @@ module RedisRepeater
     private
 
     def load_hash_configuration(hash)
-      hash['servers'].each do |name, value|
+      hash['servers'] && hash['servers'].each do |name, value|
         options = {}
         value.each { |k, v| options[k.to_sym] = v }
         @servers[name] = Redis.new(options)
       end
-      hash['repeats'].each do |repeat|
+      hash['repeats'] && hash['repeats'].each do |repeat|
         options = {}
         options[:source] = find_server_by_name repeat['source']
         # Handle 'magic' queues

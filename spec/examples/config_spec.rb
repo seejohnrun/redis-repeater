@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe RedisRepeater::Repeater do
   
+  it 'should get an error when the configuration is empty' do
+    lambda do
+      repeater = RedisRepeater::Repeater.new nil
+    end.should raise_error RedisRepeater::ConfigurationError
+  end
+
   it 'should be able to pick up magic queues for resque' do
     while REDIS_ONE.spop 'resque:queues'; end
 

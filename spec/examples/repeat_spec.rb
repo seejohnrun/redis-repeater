@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe RedisRepeater do
 
   # Clear the things we use
-  before :all do
+  before :each do
     ['john', 'kate', 'john2', 'kate2', 'john3'].each do |name|
       while REDIS_ONE.lpop(name)
       end
