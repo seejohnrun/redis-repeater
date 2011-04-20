@@ -39,7 +39,7 @@ If you specify a queue named `resque:queue:*`, all of your resque queues will be
 
 ### Maintaining Counts
 
-In config.yml, if you include `counter:true`, counts will be maintained for the number of repeated items in queues named: `redis-repeater:#{queue_name}:count`
+In config.yml, if you include `maintain_count:true`, counts will be maintained for the number of repeated items in queues named: `redis-repeater:#{queue_name}:count`
 
 ### Dependencies
 
