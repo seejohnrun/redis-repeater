@@ -13,7 +13,7 @@ class RedisRepeaterController < Pidly::Control
     else
       configuration = YAML::load File.open(ARGV[1], 'r')
       @repeater = RedisRepeater::Repeater.new(configuration)
-      puts "PID: #{self.pid}"
+      puts self.pid
     end
   end
 
@@ -26,7 +26,7 @@ end
 @daemon = RedisRepeaterController.spawn :name => 'redis_repeater', :verbose => true
 
 # Handle the command
-commands = %w{stop status restart clean! kill}
+commands = %w{start stop status restart clean! kill}
 if commands.include?(ARGV.first)
   @daemon.send ARGV.first
 else
