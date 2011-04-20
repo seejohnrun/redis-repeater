@@ -51,6 +51,8 @@ module RedisRepeater
         options[:queue] = repeat['queue']
         options[:timeout] = repeat['timeout'] || 0
         options[:maintain_count] = !!repeat['maintain_count'] # default false
+        # Remove duplicates and add this
+        @repeats.delete_if { |r| r.source == options[:source] && r.queue == options[:queue] }
         @repeats << TransferSchedulerJob.new(self, options)
       end
     end

@@ -2,6 +2,25 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe RedisRepeater::Repeater do
 
+  it 'should be able to replace a magic queue portion with an override' do
+    while REDIS_ONE.spop 'resque:queues'; end
+
+    3.times do |idx|
+      REDIS_ONE.sadd 'resque:queues', "john#{idx}"
+    end
+
+    repeater = RedisRepeater::Repeater.new 'servers' => { 'one' => SERVER_ONE }, 'repeats' => [
+      { 'queue' => 'resque:queues:*', 'source' => 'one', 'destinations' => [] },
+      { 'queue' => 'resque:queue:john0', 'source' => 'one', 'destinations' => [ { 'server' => 'one', 'queue' => 'john_bam' } ] }
+    ]
+
+    repeater.repeats.count.should == 3
+    repeater.repeats.each_with_index do |repeat, idx|
+      repeat.queue.should == "resque:queue:john#{idx}"
+      repeat.queue == 'john0' ? repeat.destinations.count.should == 1 : repeat.destinations.count.should == 0
+    end
+  end
+
   it 'should be able to get its version' do
     RedisRepeater::VERSION.should be_a Array
   end
