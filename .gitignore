@@ -2,4 +2,5 @@
 *.swo
 *.gem
 spec/test.log
+.bundle
 Gemfile.lock
