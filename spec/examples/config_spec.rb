@@ -4,7 +4,7 @@ describe RedisRepeater::Repeater do
 
   it 'should give an error when trying to connect to a host that doesn\'t exist' do
     lambda do
-      repeater = RedisRepeater::Repeater.new 'servers' => { 'two' => SERVER_TWO }, 'repeats' => [
+      repeater = RedisRepeater::Repeater.new 'log' => TEST_FILENAME, 'servers' => { 'two' => SERVER_TWO }, 'repeats' => [
         { 'queue' => 'john', 'source' => 'two', 'destinations' => [ { 'server' => 'two' } ] }
       ]
       repeater.run_forever

@@ -10,7 +10,7 @@ module RedisRepeater
       @repeats = []
       # Get the logger
       @logger = logger
-      @logger ||= Logger.new(File.open(configuration['log'], 'a')) if configuration['log']
+      @logger ||= Logger.new(configuration['log']) if configuration['log']
       @logger ||= Logger.new(STDOUT)
       # Load the configuration and start the server
       load_hash_configuration configuration
@@ -23,8 +23,8 @@ module RedisRepeater
         @repeats.each do |job|
           EventMachine::add_periodic_timer(job.timeout) { job.perform }
         end
+        @logger.info "Repeating #{@repeats.count} #{@repeats.count == 1 ? 'queue' : 'queues'} forever!"
       end
-      @logger.info "\nRepeating #{@repeats.count} #{@repeats.count == 1 ? 'queue' : 'queues'} forever!"
     end
 
     private
