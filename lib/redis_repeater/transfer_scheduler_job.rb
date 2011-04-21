@@ -24,7 +24,7 @@ module RedisRepeater
       end
       # Keep the count and log a debug message
       @source.incrby("redis-repeater:#{@queue}:count", count) if @maintain_count
-      @logger.debug "Transported #{count} items from #{@queue} to #{@destinations.count} #{@destinations.count == 1 ? 'destination' : 'destinations'}"
+      @logger.debug "Transported #{count} items from #{@queue} to #{@destinations.count} #{@destinations.count == 1 ? 'destination' : 'destinations'}" unless count == 0
     end
 
   end
