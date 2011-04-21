@@ -39,7 +39,7 @@ module RedisRepeater
         options = {}
         options[:source] = find_server_by_name repeat['source']
         # Handle 'magic' queues
-        if repeat['queue'] == 'resque:queues' || repeat['queue'] == 'resque:queues:*'
+        if repeat['queue'] == 'resque:queues' || repeat['queue'] == 'resque:queue:*'
           options[:source].smembers('resque:queues').each do |queue|
             repeat = repeat.dup
             repeat['queue'] = "resque:queue:#{queue}"

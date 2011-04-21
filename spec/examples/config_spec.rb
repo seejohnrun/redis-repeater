@@ -19,7 +19,7 @@ describe RedisRepeater::Repeater do
     end
 
     repeater = RedisRepeater::Repeater.new 'servers' => { 'one' => SERVER_ONE }, 'repeats' => [
-      { 'queue' => 'resque:queues:*', 'source' => 'one', 'destinations' => [] },
+      { 'queue' => 'resque:queue:*', 'source' => 'one', 'destinations' => [] },
       { 'queue' => 'resque:queue:john0', 'source' => 'one', 'destinations' => [ { 'server' => 'one', 'queue' => 'john_bam' } ] }
     ]
 
@@ -47,7 +47,7 @@ describe RedisRepeater::Repeater do
       REDIS_ONE.sadd 'resque:queues', "john#{idx}"
     end
 
-    repeater = RedisRepeater::Repeater.new 'servers' => { 'one' => SERVER_ONE }, 'repeats' => [ { 'queue' => 'resque:queues:*', 'source' => 'one', 'destinations' => [] } ]
+    repeater = RedisRepeater::Repeater.new 'servers' => { 'one' => SERVER_ONE }, 'repeats' => [ { 'queue' => 'resque:queue:*', 'source' => 'one', 'destinations' => [] } ]
     repeater.repeats.count.should == 3
 
     repeater.repeats.each_with_index do |repeat, idx|
