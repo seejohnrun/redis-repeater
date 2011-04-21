@@ -37,6 +37,8 @@ log: /path/to/repeater.log
 
 If you specify a queue named `resque:queue:*`, all of your resque queues will be repeated
 
+Lower repeats on individual queues will override these.
+
 ## Maintaining Counts
 
 In config.yml, if you include `maintain_count:true`, counts will be maintained for the number of repeated items in queues named: `redis-repeater:#{queue_name}:count`
