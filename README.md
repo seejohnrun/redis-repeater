@@ -27,8 +27,8 @@ repeats:
     timeout: 0
     maintain_count: true
     destinations:
-      server: two
-      queue: queue_name_change
+      - server: two
+        queue: queue_name_change
 
 log: /path/to/repeater.log
 ```
